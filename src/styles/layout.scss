@@ -1,0 +1,84 @@
+@import "./colors.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background-color: unset;
+  border: unset;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  &::after {
+    content: "";
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    border: 0.1em solid $lightGrayishBlue;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+input[type="checkbox"]:checked {
+  &::after {
+    content: url("/images/icon-check.svg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $checkBackground;
+  }
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  &.nowrap {
+    flex-wrap: nowrap;
+  }
+  &.center {
+    align-items: center;
+  }
+  &.top {
+    align-items: flex-start;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.space-around {
+    justify-content: space-around;
+  }
+}
+
+img {
+  display: block;
+  object-fit: contain;
+}
