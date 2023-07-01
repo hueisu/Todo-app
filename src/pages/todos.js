@@ -4,6 +4,7 @@ export default function Todos() {
   const [todos, setTodos] = useState([]);
   const [statusFiler, setStatusFilter] = useState("all");
   const newTodo = useRef("");
+  const [activeTodoCounts, setActiveTodoCounts] = useState(0);
 
   useEffect(() => {
     fetch("/api/todos")
@@ -41,6 +42,7 @@ export default function Todos() {
   }
   useEffect(() => {
     newTodo.current.value = "";
+    setActiveTodoCounts(todos.filter((todo) => !todo.isCompleted).length);
   }, [todos]);
 
   function deleteTodo(id) {
@@ -119,7 +121,7 @@ export default function Todos() {
             <ol>{todos.length !== 0 && todoList()}</ol>
           </div>
           <div className="todo-info row space-between">
-            <span>0 items left</span>
+            <span>{activeTodoCounts} items left</span>
             <div className="filter-section row">
               <button
                 onClick={() => toggleStatusFilter("all")}
