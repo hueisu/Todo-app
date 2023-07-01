@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
+  const [statusFiler, setStatusFilter] = useState("all");
   const newTodo = useRef("");
 
   useEffect(() => {
@@ -51,6 +52,48 @@ export default function Todos() {
     setTodos(newTodos);
   }
 
+  function toggleStatusFilter(status = "all") {
+    setStatusFilter(status);
+  }
+  function clearCompleted() {}
+
+  function todoList() {
+    const todoList = todos.filter((todo) => {
+      if (statusFiler === "active") {
+        return todo.isCompleted == false;
+      } else if (statusFiler === "completed") {
+        return todo.isCompleted == true;
+      } else {
+        return todo;
+      }
+    });
+
+    return todoList.map((todo) => {
+      return (
+        <li className="row nowrap" key={todo.id}>
+          <input
+            type="checkbox"
+            checked={todo.isCompleted}
+            onChange={() => toggleComplete(todo.id)}
+          />
+          <div className="todo-name-wrapper row">
+            <span
+              className={`todo-name ${todo.isCompleted ? "completed" : ""}`}
+            >
+              {todo.name}
+            </span>
+            <button
+              onClick={() => deleteTodo(todo.id)}
+              className="delete-btn btn"
+            >
+              <img src="/images/icon-cross.svg" />
+            </button>
+          </div>
+        </li>
+      );
+    });
+  }
+
   return (
     <main id="todo-list">
       <div className="todo-card-wrapper">
@@ -73,42 +116,29 @@ export default function Todos() {
         </div>
         <div className="todo-section">
           <div className="todo-wrapper">
-            <ol>
-              {todos.length !== 0 &&
-                todos.map((todo) => {
-                  return (
-                    <li className="row nowrap" key={todo.id}>
-                      <input
-                        type="checkbox"
-                        checked={todo.isCompleted}
-                        onChange={() => toggleComplete(todo.id)}
-                      />
-                      <div className="todo-name-wrapper row">
-                        <span
-                          className={`todo-name ${
-                            todo.isCompleted ? "completed" : ""
-                          }`}
-                        >
-                          {todo.name}
-                        </span>
-                        <button
-                          onClick={() => deleteTodo(todo.id)}
-                          className="delete-btn btn"
-                        >
-                          <img src="/images/icon-cross.svg" />
-                        </button>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ol>
+            <ol>{todos.length !== 0 && todoList()}</ol>
           </div>
           <div className="todo-info row space-between">
-            <span>5 items left</span>
+            <span>0 items left</span>
             <div className="filter-section row">
-              <button className="option-active">All</button>
-              <button>Active</button>
-              <button>Completed</button>
+              <button
+                onClick={() => toggleStatusFilter("all")}
+                className={statusFiler === "all" ? "option-active" : ""}
+              >
+                All
+              </button>
+              <button
+                onClick={() => toggleStatusFilter("active")}
+                className={statusFiler === "active" ? "option-active" : ""}
+              >
+                Active
+              </button>
+              <button
+                onClick={() => toggleStatusFilter("completed")}
+                className={statusFiler === "completed" ? "option-active" : ""}
+              >
+                Completed
+              </button>
             </div>
             <div>
               <button className="clear-btn btn">Clear Completed</button>
