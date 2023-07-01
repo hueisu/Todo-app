@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
+  const newTodo = useRef("");
 
   useEffect(() => {
     fetch("/api/todos")
@@ -24,6 +25,23 @@ export default function Todos() {
     setTodos(newTodos);
   }
 
+  function createNewTodo() {
+    const newTodoName = newTodo.current.value;
+    if (newTodoName) {
+      const newTodo = {
+        id: todos.length,
+        name: newTodoName,
+        isCompleted: false,
+      };
+
+      // TODO:: post to api
+      setTodos([...todos, newTodo]);
+    }
+  }
+  useEffect(() => {
+    newTodo.current.value = "";
+  }, [todos]);
+
   return (
     <main id="todo-list">
       <div className="todo-card-wrapper">
@@ -31,8 +49,18 @@ export default function Todos() {
           <h1 className="title">TODO</h1>
           <img alt="toggle-icon" src="/images/icon-moon.svg" width="100%" />
         </div>
-        <div className="new-todo-section">
-          <input placeholder="Create a new todo..." />
+        <div className="new-todo-section row center">
+          <div>
+            <button className="create-btn" onClick={createNewTodo}>
+              +
+            </button>
+          </div>
+          <input
+            type="text"
+            className="new-todo-name"
+            placeholder="Create a new todo..."
+            ref={newTodo}
+          />
         </div>
         <div className="todo-section">
           <div className="todo-wrapper">

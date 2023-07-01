@@ -30,15 +30,20 @@
 
 .new-todo-section {
   margin-top: 1.5em;
-  input {
-    width: 100%;
-    padding: 1.2em;
-    border-radius: 0.3em;
-    border-style: none;
-    &:focus {
-      outline: none;
-    }
+  padding: 1.2em;
+  background-color: white;
+  border-radius: 0.3em;
+  .new-todo-name {
+    margin-left: 1.2em;
+    flex: 1;
   }
+}
+
+.create-btn {
+  width: 1.2em;
+  height: 1.2em;
+  background: $checkBackground;
+  color: white;
 }
 
 .todo-section {
