@@ -46,13 +46,18 @@ export default function Todos() {
                         checked={todo.isCompleted}
                         onChange={() => toggleComplete(todo.id)}
                       />
-                      <span
-                        className={`todo-name ${
-                          todo.isCompleted ? "completed" : ""
-                        }`}
-                      >
-                        {todo.name}
-                      </span>
+                      <div className="todo-name-wrapper row">
+                        <span
+                          className={`todo-name ${
+                            todo.isCompleted ? "completed" : ""
+                          }`}
+                        >
+                          {todo.name}
+                        </span>
+                        <button className="delete-btn btn">
+                          <img src="/images/icon-cross.svg" />
+                        </button>
+                      </div>
                     </li>
                   );
                 })}
