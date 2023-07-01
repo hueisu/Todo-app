@@ -1,12 +1,29 @@
+import { useEffect, useState } from "react";
+
 export default function Todos() {
-  const todoArray = [
-    "Complete online JavaScript course",
-    "Jog around the park 3x",
-    "10 minutes meditation",
-    "Read for 1 hour",
-    "Pick up groceries",
-    "Complete Todo App on Frontend Mentor",
-  ];
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/todos")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setTodos(data.todoInfo);
+      });
+  }, []);
+
+  function toggleComplete(id) {
+    const newTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+      return todo;
+    });
+
+    setTodos(newTodos);
+  }
+
   return (
     <main id="todo-list">
       <div className="todo-card-wrapper">
@@ -20,18 +37,25 @@ export default function Todos() {
         <div className="todo-section">
           <div className="todo-wrapper">
             <ol>
-              {todoArray.map((todo, index) => {
-                return (
-                  <li className="row nowrap" key={index}>
-                    <input type="checkbox" />
-                    <span
-                      className={`todo-name ${index === 0 ? "completed" : ""}`}
-                    >
-                      {todo}
-                    </span>
-                  </li>
-                );
-              })}
+              {todos.length &&
+                todos.map((todo) => {
+                  return (
+                    <li className="row nowrap" key={todo.id}>
+                      <input
+                        type="checkbox"
+                        checked={todo.isCompleted}
+                        onChange={() => toggleComplete(todo.id)}
+                      />
+                      <span
+                        className={`todo-name ${
+                          todo.isCompleted ? "completed" : ""
+                        }`}
+                      >
+                        {todo.name}
+                      </span>
+                    </li>
+                  );
+                })}
             </ol>
           </div>
           <div className="todo-info row space-between">
