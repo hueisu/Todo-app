@@ -20,6 +20,7 @@ textarea,
 select {
   font: inherit;
   color: inherit;
+  display: block;
 }
 
 button {
@@ -30,11 +31,20 @@ button {
   }
 }
 
+input[type="text"] {
+  border-style: none;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+
 input[type="checkbox"] {
   appearance: none;
   &::after {
     content: "";
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 1.2em;
     height: 1.2em;
     border: 0.1em solid $lightGrayishBlue;
@@ -46,9 +56,6 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   &::after {
     content: url("/images/icon-check.svg");
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: $checkBackground;
   }
 }
