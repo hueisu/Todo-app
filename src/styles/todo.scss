@@ -103,6 +103,17 @@
   }
 }
 
+.mobile-show .filter-section {
+  padding: 1.2em;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: $darkGrayishBlue;
+  margin-top: 1.5em;
+  background-color: white;
+  border-radius: 0.2em;
+  justify-content: center;
+}
+
 .todo-bottom {
   color: $darkGrayishBlue;
   text-align: center;

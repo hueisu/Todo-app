@@ -89,3 +89,17 @@ img {
   display: block;
   object-fit: contain;
 }
+
+.mobile-show {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .mobile-hide {
+    display: none;
+  }
+
+  .mobile-show {
+    display: unset;
+  }
+}
