@@ -42,6 +42,15 @@ export default function Todos() {
     newTodo.current.value = "";
   }, [todos]);
 
+  function deleteTodo(id) {
+    const newTodos = [...todos].filter((todo) => {
+      return todo.id !== id;
+    });
+
+    // TODO: post to api
+    setTodos(newTodos);
+  }
+
   return (
     <main id="todo-list">
       <div className="todo-card-wrapper">
@@ -65,7 +74,7 @@ export default function Todos() {
         <div className="todo-section">
           <div className="todo-wrapper">
             <ol>
-              {todos.length &&
+              {todos.length !== 0 &&
                 todos.map((todo) => {
                   return (
                     <li className="row nowrap" key={todo.id}>
@@ -82,7 +91,10 @@ export default function Todos() {
                         >
                           {todo.name}
                         </span>
-                        <button className="delete-btn btn">
+                        <button
+                          onClick={() => deleteTodo(todo.id)}
+                          className="delete-btn btn"
+                        >
                           <img src="/images/icon-cross.svg" />
                         </button>
                       </div>
