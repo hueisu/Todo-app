@@ -101,6 +101,31 @@ export default function Todos() {
     });
   }
 
+  function filterButtons() {
+    return (
+      <div className="filter-section row">
+        <button
+          onClick={() => toggleStatusFilter("all")}
+          className={statusFiler === "all" ? "option-active" : ""}
+        >
+          All
+        </button>
+        <button
+          onClick={() => toggleStatusFilter("active")}
+          className={statusFiler === "active" ? "option-active" : ""}
+        >
+          Active
+        </button>
+        <button
+          onClick={() => toggleStatusFilter("completed")}
+          className={statusFiler === "completed" ? "option-active" : ""}
+        >
+          Completed
+        </button>
+      </div>
+    );
+  }
+
   return (
     <main id="todo-list">
       <div className="todo-card-wrapper">
@@ -127,26 +152,7 @@ export default function Todos() {
           </div>
           <div className="todo-info row space-between">
             <span>{activeTodoCounts} items left</span>
-            <div className="filter-section row">
-              <button
-                onClick={() => toggleStatusFilter("all")}
-                className={statusFiler === "all" ? "option-active" : ""}
-              >
-                All
-              </button>
-              <button
-                onClick={() => toggleStatusFilter("active")}
-                className={statusFiler === "active" ? "option-active" : ""}
-              >
-                Active
-              </button>
-              <button
-                onClick={() => toggleStatusFilter("completed")}
-                className={statusFiler === "completed" ? "option-active" : ""}
-              >
-                Completed
-              </button>
-            </div>
+            <div className="mobile-hide">{filterButtons()}</div>
             <div>
               <button onClick={clearCompleted} className="clear-btn btn">
                 Clear Completed
@@ -154,6 +160,7 @@ export default function Todos() {
             </div>
           </div>
         </div>
+        <div className="mobile-show">{filterButtons()}</div>
         <div className="todo-bottom">
           {/*TODO: <span>Drag and drop to reorder list</span> */}
         </div>
