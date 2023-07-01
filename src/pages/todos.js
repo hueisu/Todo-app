@@ -57,7 +57,12 @@ export default function Todos() {
   function toggleStatusFilter(status = "all") {
     setStatusFilter(status);
   }
-  function clearCompleted() {}
+  function clearCompleted() {
+    const newTodos = [...todos].filter(function (todo) {
+      return !todo.isCompleted;
+    });
+    setTodos(newTodos);
+  }
 
   function todoList() {
     const todoList = todos.filter((todo) => {
@@ -143,7 +148,9 @@ export default function Todos() {
               </button>
             </div>
             <div>
-              <button className="clear-btn btn">Clear Completed</button>
+              <button onClick={clearCompleted} className="clear-btn btn">
+                Clear Completed
+              </button>
             </div>
           </div>
         </div>
