@@ -24,11 +24,18 @@ export default function Todos() {
                 return (
                   <li className="row nowrap" key={index}>
                     <input type="checkbox" />
-                    <span
-                      className={`todo-name ${index === 0 ? "completed" : ""}`}
-                    >
-                      {todo}
-                    </span>
+                    <div className="todo-name-wrapper row">
+                      <span
+                        className={`todo-name ${
+                          index === 0 ? "completed" : ""
+                        }`}
+                      >
+                        {todo}
+                      </span>
+                      <button className="delete-btn btn">
+                        <img src="/images/icon-cross.svg" />
+                      </button>
+                    </div>
                   </li>
                 );
               })}

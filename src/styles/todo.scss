@@ -46,19 +46,35 @@
   background-color: white;
   border-radius: 0.2em;
   box-shadow: 0 1em 1.5em -1em $darkGrayishBlue;
+}
+
+.todo-wrapper {
   li {
     padding: 1.2em;
   }
-  li .todo-name {
-    margin-left: 1.2em;
-    padding-top: 0.15em;
+  .todo-name-wrapper {
+    flex: 1;
+    .delete-btn {
+      visibility: hidden;
+    }
+    &:hover {
+      .delete-btn {
+        visibility: visible;
+      }
+    }
+
+    .todo-name {
+      margin-left: 1.2em;
+      padding-top: 0.15em;
+      flex: 1;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
   li + li {
     border-top: 0.1em solid $veryLightGrayishBlue;
   }
-}
-
-.todo-wrapper {
   .completed {
     text-decoration: line-through;
     color: $lightGrayishBlue;
