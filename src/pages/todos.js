@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Todos() {
   const [todos, setTodos] = useState([]);
@@ -31,7 +32,7 @@ export default function Todos() {
     const newTodoName = newTodo.current.value;
     if (newTodoName) {
       const newTodo = {
-        id: todos.length,
+        id: uuidv4(),
         name: newTodoName,
         isCompleted: false,
       };
